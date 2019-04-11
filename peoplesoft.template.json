@@ -1,6 +1,6 @@
 {
-    "index_patterns" : "filebeat*",
-    "version" : 50003,
+    "index_patterns" : "filebeat-*",
+    "version" : 50004,
     "settings" : {
       "index.refresh_interval": "10s"
     },
@@ -26,16 +26,7 @@
           },
           "geoip" : {
             "properties" : {
-              "_default" : {
-                "type" : "text",
-                "fields" : {
-                  "keyword" : {
-                    "type" : "keyword",
-                    "ignore_above" : 256
-                  }
-                }
-              },
-              "location" : {
+              "coordinates" : {
                 "type" : "geo_point"
               }
             }
@@ -45,7 +36,10 @@
           },
           "load_done" : {
             "type" : "long"
-          },    
+          },   
+          "location" : {
+            "type" : "geo_point"
+          }, 
           "offset" : {
             "type" : "long"
           },
