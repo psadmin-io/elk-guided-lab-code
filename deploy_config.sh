@@ -45,7 +45,7 @@ function echoerror() {
 
 function deploy_pipeline() {
   echoinfo "Deploying Logstash Pipeline"
-  mkdir /usr/share/logstash/config
+  mkdir -p /usr/share/logstash/config
   cp /tmp/elk-guided-lab-code/pipelines.yml /usr/share/logstash/config/
   chown -R logstash:logstash /usr/share/logstash/config
 }
