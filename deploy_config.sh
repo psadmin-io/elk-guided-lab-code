@@ -44,14 +44,14 @@ function echoerror() {
 }
 
 function deploy_pipeline() {
-  echoinfo "Deploying Logstash Pipeline"
+  echoinfo "Deploying Logstash Pipeline: /usr/share/logstash/config/pipelines.yml" 
   mkdir -p /usr/share/logstash/config
   cp /tmp/elk-guided-lab-code/pipelines.yml /usr/share/logstash/config/
   chown -R logstash:logstash /usr/share/logstash/config
 }
 
 function deploy_peoplesoft_config() {
-  echoinfo "Deploying PeopleSoft Log Configuration"
+  echoinfo "Deploying PeopleSoft Log Configuration: /etc/logstash/conf.d/peoplesoft.conf"
   cp -r /tmp/elk-guided-lab-code/conf.d /etc/logstash/
   chown -R logstash:logstash /etc/logstash/conf.d
 }
