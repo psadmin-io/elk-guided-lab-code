@@ -63,11 +63,15 @@ function deploy_peoplesoft_patterns() {
   chown -R logstash:logstash /etc/logstash/conf.d
 }
 
-
-
 function remove_file_read_data() {
   echoinfo "Removing file read data for Logstash"
   rm -rf /usr/share/logstash/data/plugins/inputs/file/.sinced*
+}
+
+function deploy_elasticsearch_template() {
+  echoinfo "Deploying Elasticsearch Template for PeopleSoft Logs"
+  cp -r /tmp/elk-guided-lab-code/peoplesoft.template.json /etc/logstash/
+  chown logstash:logstash /etc/logstash/peoplesoft.template.json
 }
 
 ########
@@ -79,21 +83,26 @@ case $1 in
     deploy_peoplesoft_config "01"
     deploy_pipeline
     remove_file_read_data
+    ;;
   "step02")
     deploy_peoplesoft_config "02"
     deploy_peoplesoft_patterns
     deploy_pipeline
     remove_file_read_data
+    ;;
   "step03")
     deploy_peoplesoft_config "03"
     deploy_peoplesoft_patterns
     deploy_pipeline
     remove_file_read_data
+    deploy_elasticsearch_template
+    ;;
   "final")
     deploy_peoplesoft_config "final"
     deploy_peoplesoft_patterns
     deploy_pipeline
     remove_file_read_data
+    ;;
   *)
     echoinfo "Pass in a step to deploy: step01, step0X, or final"
 esac
