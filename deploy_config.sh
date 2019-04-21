@@ -46,7 +46,7 @@ function echoerror() {
 
 function deploy_pipeline() {
   echoinfo "Deploying Logstash Pipeline: /usr/share/logstash/config/pipelines.yml" 
-  mkdir -p /usr/share/logstash/config
+  mkdir -p /usr/share/logstash/config 
   cp /tmp/elk-guided-lab-code/pipelines.yml /usr/share/logstash/config/
   chown -R logstash:logstash /usr/share/logstash/config
 }
@@ -59,7 +59,7 @@ function deploy_peoplesoft_config() {
 
 function deploy_peoplesoft_patterns() {
   echoinfo "Deploying PeopleSoft Grok Patterns: /etc/logstash/conf.d/patterns"
-  cp -r /tmp/elk-guided-lab-code/conf.d/patterns /etc/logstash/
+  cp -R /tmp/elk-guided-lab-code/conf.d/patterns /etc/logstash/conf.d/
   chown -R logstash:logstash /etc/logstash/conf.d
 }
 
@@ -70,6 +70,7 @@ function remove_file_read_data() {
 
 function deploy_elasticsearch_template() {
   echoinfo "Deploying Elasticsearch Template for PeopleSoft Logs"
+  echoinfo "-> Make sure to change the `elastic` password in the base file"
   cp -r /tmp/elk-guided-lab-code/peoplesoft.template.json /etc/logstash/
   chown logstash:logstash /etc/logstash/peoplesoft.template.json
 }
@@ -102,6 +103,7 @@ case $1 in
     deploy_peoplesoft_patterns
     deploy_pipeline
     remove_file_read_data
+    deploy_elasticsearch_template
     ;;
   *)
     echoinfo "Pass in a step to deploy: step01, step0X, or final"

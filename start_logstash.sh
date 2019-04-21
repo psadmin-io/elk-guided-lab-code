@@ -45,7 +45,7 @@ function echoerror() {
 
 function start_logstash() {
   echoinfo "Starting Logstash"
-  /usr/share/logstash/bin/logstash
+  /usr/share/logstash/bin/logstash --path.settings=/etc/logstash
 }
 
 ########
