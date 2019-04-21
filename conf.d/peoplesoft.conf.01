@@ -5,7 +5,7 @@ input {
     mode => "read"
     start_position => "beginning"
     file_completed_action => "log"
-    file_completed_log_path => "/tmp"
+    file_completed_log_path => "/tmp/files.log"
   }
 }
 
