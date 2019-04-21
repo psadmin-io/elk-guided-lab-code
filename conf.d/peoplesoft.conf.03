@@ -14,10 +14,17 @@ filter {
       patterns_dir => "/etc/logstash/conf.d/patterns"
       match => { "message" => "%{WL_IO_EXTENDED}"}
     }
-
 }
 
 output {
+  elasticsearch {
+    hosts => ["http://localhost:9200"]
+    manage_template => true
+    template => "/etc/logstash/peoplesoft.template.json"
+    index => "filebeat-%{+YYYY.MM.dd}"
+    user => "elastic"
+    password => "6GgW7voSgCMddYi0tUGs"
+  }
   stdout {
     codec => "json"
   }

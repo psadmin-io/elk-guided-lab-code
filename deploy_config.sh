@@ -4,9 +4,9 @@
 # vim: softtabstop=2 shiftwidth=2 expandtab fenc=utf-8 spelllang=en ft=sh
 #===============================================================================
 #
-#          FILE: deploy_config_02.sh
+#          FILE: deploy_config_03.sh
 #
-#         USAGE: sudo ./deploy_config_02.sh
+#         USAGE: sudo ./deploy_config_03.sh
 #
 #   DESCRIPTION: Deploy Logstash configuration for the ELK Lab
 #
@@ -50,9 +50,9 @@ function deploy_pipeline() {
   chown -R logstash:logstash /usr/share/logstash/config
 }
 
-function deploy_peoplesoft_config() {
+function deploy_peoplesoft_config(args : string step) {
   echoinfo "Deploying PeopleSoft Log Configuration 02: /etc/logstash/conf.d/peoplesoft.conf"
-  cp -r /tmp/elk-guided-lab-code/conf.d/peoplesoft.conf.02 /etc/logstash/conf.d/peoplesoft.conf
+  cp -r /tmp/elk-guided-lab-code/conf.d/peoplesoft.conf."${step}" /etc/logstash/conf.d/peoplesoft.conf
   chown -R logstash:logstash /etc/logstash/conf.d
 }
 
@@ -61,6 +61,8 @@ function deploy_peoplesoft_patterns() {
   cp -r /tmp/elk-guided-lab-code/conf.d/patterns /etc/logstash/
   chown -R logstash:logstash /etc/logstash/conf.d
 }
+
+
 
 function remove_file_read_data() {
   echoinfo "Removing file read data for Logstash"
@@ -71,8 +73,26 @@ function remove_file_read_data() {
 # Main #
 ########
 
-
-deploy_peoplesoft_config
-deploy_peoplesoft_patterns
-deploy_pipeline
-remove_file_read_data
+case $1 in
+  "step01")
+    deploy_peoplesoft_config "01"
+    deploy_pipeline
+    remove_file_read_data
+  "step02")
+    deploy_peoplesoft_config "02"
+    deploy_peoplesoft_patterns
+    deploy_pipeline
+    remove_file_read_data
+  "step03")
+    deploy_peoplesoft_config "03"
+    deploy_peoplesoft_patterns
+    deploy_pipeline
+    remove_file_read_data
+  "final")
+    deploy_peoplesoft_config "final"
+    deploy_peoplesoft_patterns
+    deploy_pipeline
+    remove_file_read_data
+  *)
+    echoinfo "Pass in a step to deploy"
+esac

@@ -1,8 +1,8 @@
 input {
-  #beats {
-  #  type => beats
-  #  port => 5044
-  #}
+  beats {
+    type => beats
+    port => 5044
+  }
   file {
     type => "access_log"
     path => ["/tmp/elk-guided-lab-code/logs/webserv/psftdb/servers/PIA/logs/PIA_access.log*"]
