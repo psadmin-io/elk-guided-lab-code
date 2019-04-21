@@ -4,9 +4,9 @@
 # vim: softtabstop=2 shiftwidth=2 expandtab fenc=utf-8 spelllang=en ft=sh
 #===============================================================================
 #
-#          FILE: deploy_config_step1.sh
+#          FILE: deploy_config_02.sh
 #
-#         USAGE: sudo ./deploy_config_step1.sh
+#         USAGE: sudo ./deploy_config_02.sh
 #
 #   DESCRIPTION: Deploy Logstash configuration for the ELK Lab
 #
@@ -51,8 +51,14 @@ function deploy_pipeline() {
 }
 
 function deploy_peoplesoft_config() {
-  echoinfo "Deploying PeopleSoft Log Configuration: /etc/logstash/conf.d/peoplesoft.conf"
-  cp -r /tmp/elk-guided-lab-code/conf.d /etc/logstash/
+  echoinfo "Deploying PeopleSoft Log Configuration 02: /etc/logstash/conf.d/peoplesoft.conf"
+  cp -r /tmp/elk-guided-lab-code/conf.d/peoplesoft.conf.02 /etc/logstash/peoplesoft.conf
+  chown -R logstash:logstash /etc/logstash/conf.d
+}
+
+function deploy_peoplesoft_patterns() {
+  echoinfo "Deploying PeopleSoft Grok Patterns: /etc/logstash/conf.d/patterns"
+  cp -r /tmp/elk-guided-lab-code/conf.d/patterns /etc/logstash/
   chown -R logstash:logstash /etc/logstash/conf.d
 }
 
@@ -62,4 +68,5 @@ function deploy_peoplesoft_config() {
 
 
 deploy_peoplesoft_config
+deploy_peoplesoft_patterns
 deploy_pipeline

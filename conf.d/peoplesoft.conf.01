@@ -1,0 +1,18 @@
+input {
+   file {
+      type => "access_log"
+      path => ["/tmp/elk-guided-lab-code/logs/webserv/psftdb/servers/PIA/logs/PIA_access.log"]
+      mode => "read"
+      start_position => "beginning"
+   }
+}
+
+filter {
+
+}
+
+output {
+  stdout {
+    codec => "json"
+  }
+}
