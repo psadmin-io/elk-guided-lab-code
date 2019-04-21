@@ -56,11 +56,6 @@ function deploy_peoplesoft_config() {
   chown -R logstash:logstash /etc/logstash/conf.d
 }
 
-function expanding_sample_logs() {
-  echoinfo "Expanding Sample Logs"
-  unzip -o /tmp/elk-guided-lab-code/logs.zip -d /tmp/elk-guided-lab-code/ > /dev/null 2>&1
-}
-
 function remove_file_read_data() {
   echoinfo "Removing Saved File Read Data for Logstash"
   rm -rf /usr/share/logstash/data/plugins/inputs/file/.sinced*
@@ -73,5 +68,4 @@ function remove_file_read_data() {
 
 deploy_peoplesoft_config
 deploy_pipeline
-expanding_sample_logs
 remove_file_read_data
