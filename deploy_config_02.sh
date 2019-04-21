@@ -62,6 +62,11 @@ function deploy_peoplesoft_patterns() {
   chown -R logstash:logstash /etc/logstash/conf.d
 }
 
+function remove_file_read_data() {
+  echoinfo "Removing file read data for Logstash"
+  rm -rf /usr/share/logstash/data/plugins/inputs/file/.sinced*
+}
+
 ########
 # Main #
 ########
@@ -70,3 +75,4 @@ function deploy_peoplesoft_patterns() {
 deploy_peoplesoft_config
 deploy_peoplesoft_patterns
 deploy_pipeline
+remove_file_read_data

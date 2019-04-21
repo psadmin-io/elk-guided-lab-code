@@ -1,3 +1,3 @@
 - pipeline.id: peoplesoft_logs
   queue.type: persisted
-  path.config: "/etc/logstash/conf.d/peoplesoft.conf"
+  path.config: "/etc/logstash/conf.d/"
