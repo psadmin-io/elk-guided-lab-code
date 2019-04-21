@@ -4,9 +4,10 @@
 # vim: softtabstop=2 shiftwidth=2 expandtab fenc=utf-8 spelllang=en ft=sh
 #===============================================================================
 #
-#          FILE: deploy_config_03.sh
+#          FILE: deploy_config.sh
 #
-#         USAGE: sudo ./deploy_config_03.sh
+#         USAGE: sudo ./deploy_config.sh step01
+#       OPTIONS: step01, step0X, final
 #
 #   DESCRIPTION: Deploy Logstash configuration for the ELK Lab
 #
@@ -50,9 +51,9 @@ function deploy_pipeline() {
   chown -R logstash:logstash /usr/share/logstash/config
 }
 
-function deploy_peoplesoft_config(args : string step) {
+function deploy_peoplesoft_config() {
   echoinfo "Deploying PeopleSoft Log Configuration 02: /etc/logstash/conf.d/peoplesoft.conf"
-  cp -r /tmp/elk-guided-lab-code/conf.d/peoplesoft.conf."${step}" /etc/logstash/conf.d/peoplesoft.conf
+  cp -r /tmp/elk-guided-lab-code/conf.d/peoplesoft.conf."$1" /etc/logstash/conf.d/peoplesoft.conf
   chown -R logstash:logstash /etc/logstash/conf.d
 }
 
@@ -94,5 +95,5 @@ case $1 in
     deploy_pipeline
     remove_file_read_data
   *)
-    echoinfo "Pass in a step to deploy"
+    echoinfo "Pass in a step to deploy: step01, step0X, or final"
 esac
