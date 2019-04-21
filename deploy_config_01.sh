@@ -56,11 +56,10 @@ function deploy_peoplesoft_config() {
   chown -R logstash:logstash /etc/logstash/conf.d
 }
 
-# function deploy_peoplesoft_patterns() {
-#   echoinfo "Deploying PeopleSoft Grok Patterns: /etc/logstash/conf.d/patterns"
-#   cp -r /tmp/elk-guided-lab-code/conf.d/patterns /etc/logstash/
-#   chown -R logstash:logstash /etc/logstash/conf.d
-# }
+function remove_file_read_data() {
+  echoinfo "Removing file read data for Logstash"
+  rm -rf /usr/share/logstash/data/plugins/inputs/file/.sinced*
+}
 
 ########
 # Main #
@@ -68,5 +67,5 @@ function deploy_peoplesoft_config() {
 
 
 deploy_peoplesoft_config
-# deploy_peoplesoft_patterns
 deploy_pipeline
+remove_file_read_data
