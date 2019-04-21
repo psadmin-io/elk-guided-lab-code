@@ -52,7 +52,7 @@ function deploy_pipeline() {
 
 function deploy_peoplesoft_config() {
   echoinfo "Deploying PeopleSoft Log Configuration 01: /etc/logstash/conf.d/peoplesoft.conf"
-  cp -r /tmp/elk-guided-lab-code/conf.d/peoplesoft.conf.01 /etc/logstash/peoplesoft.conf
+  cp -r /tmp/elk-guided-lab-code/conf.d/peoplesoft.conf.01 /etc/logstash/conf.d/peoplesoft.conf
   chown -R logstash:logstash /etc/logstash/conf.d
 }
 
