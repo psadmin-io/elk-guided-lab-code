@@ -31,17 +31,6 @@ filter {
         remove_tag => ["_grokparsefailure"]
       }
     }
-        if [request] {
-      grok {
-        patterns_dir => "/etc/logstash/conf.d/patterns"
-        match => {"request" => "%{PS_URI_REQUEST}"}
-        add_tag => ["PIA_reqeust"]
-        remove_tag => ["_grokparsefailure"]
-      }
-      mutate {
-        copy => {"request" => "log_message"}
-      }
-    }
     mutate {
       convert => {"duration" => "float"}
       convert => {"bytes" => "integer"}
