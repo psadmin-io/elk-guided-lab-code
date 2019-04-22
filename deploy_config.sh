@@ -104,6 +104,20 @@ case $1 in
     remove_file_read_data
     deploy_elasticsearch_template
     ;;
+  "step05")
+    deploy_peoplesoft_config "05"
+    deploy_peoplesoft_patterns
+    deploy_pipeline
+    remove_file_read_data
+    deploy_elasticsearch_template
+    ;;
+  "step06")
+    deploy_peoplesoft_config "06"
+    deploy_peoplesoft_patterns
+    deploy_pipeline
+    remove_file_read_data
+    deploy_elasticsearch_template
+    ;;
   "final")
     deploy_peoplesoft_config "final"
     deploy_peoplesoft_patterns
