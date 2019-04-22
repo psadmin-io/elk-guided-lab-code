@@ -9,7 +9,7 @@ input {
     mode => "read"
     start_position => "beginning"
     file_completed_action => "log"
-    file_completed_log_path => "/tmp/files.log"
+    file_completed_log_path => "/var/log/logstash/files.log"
   }
   file {
     type => "servlet_log"
@@ -17,7 +17,7 @@ input {
     mode => "read"
     start_position => "beginning"
     file_completed_action => "log"
-    file_completed_log_path => "/tmp/files.log"
+    file_completed_log_path => "/var/log/logstash/files.log"
   }
   file {
     type => "weblogic_log"
@@ -25,7 +25,7 @@ input {
     mode => "read"
     start_position => "beginning"
     file_completed_action => "log"
-    file_completed_log_path => "/tmp/files.log"
+    file_completed_log_path => "/var/log/logstash/files.log"
   }
   file {
     type => "appsrv_log"
@@ -33,7 +33,7 @@ input {
     mode => "read"
     start_position => "beginning"
     file_completed_action => "log"
-    file_completed_log_path => "/tmp/files.log"
+    file_completed_log_path => "/var/log/logstash/files.log"
   }
 }
 
@@ -307,7 +307,7 @@ output {
     user => "elastic"
     password => "6GgW7voSgCMddYi0tUGs"
   }
-  stdout {
-    codec => "json"
-  }
+  # stdout {
+  #   codec => "json"
+  # }
 }
