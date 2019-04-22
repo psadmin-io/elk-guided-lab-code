@@ -1,0 +1,40 @@
+input {
+  file {
+    type => "access_log"
+    path => ["/tmp/elk-guided-lab-code/logs/webserv/psftdb/servers/PIA/logs/PIA_access.log"]
+    mode => "read"
+    start_position => "beginning"
+    file_completed_action => "log"
+    file_completed_log_path => "/tmp/files.log"
+  }
+}
+
+filter {
+    grok {
+      patterns_dir => "/etc/logstash/conf.d/patterns"
+      match => { "message" => "%{WL_IO_EXTENDED}"}
+    }
+    # Fix for tab-delimted time field... build a new field in a friendly format
+    mutate {
+      add_field => {
+        "datetime" => "%{year}-%{month}-%{day} %{time}"
+      }
+    }
+    date {
+      match => ["datetime", "yyyy-MM-dd HH:mm:ss"]
+    }
+}
+
+output {
+  elasticsearch {
+    hosts => ["http://localhost:9200"]
+    manage_template => true
+    template => "/etc/logstash/peoplesoft.template.json"
+    index => "filebeat-%{+YYYY.MM.dd}"
+    user => "elastic"
+    password => "6GgW7voSgCMddYi0tUGs"
+  }
+  stdout {
+    codec => "json"
+  }
+}

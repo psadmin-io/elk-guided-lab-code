@@ -10,11 +10,14 @@ input {
 }
 
 filter {
+    # Drop empty log lines
+    if [message] == "" {
+      drop { }
+    }
     grok {
       patterns_dir => "/etc/logstash/conf.d/patterns"
       match => { "message" => "%{WL_IO_EXTENDED}"}
     }
-
 }
 
 output {

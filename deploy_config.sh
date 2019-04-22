@@ -52,7 +52,7 @@ function deploy_pipeline() {
 }
 
 function deploy_peoplesoft_config() {
-  echoinfo "Deploying PeopleSoft Log Configuration 02: /etc/logstash/conf.d/peoplesoft.conf"
+  echoinfo "Deploying PeopleSoft Log Configuration $1: /etc/logstash/conf.d/peoplesoft.conf"
   cp -r /tmp/elk-guided-lab-code/conf.d/peoplesoft.conf."$1" /etc/logstash/conf.d/peoplesoft.conf
   chown -R logstash:logstash /etc/logstash/conf.d
 }
@@ -70,7 +70,6 @@ function remove_file_read_data() {
 
 function deploy_elasticsearch_template() {
   echoinfo "Deploying Elasticsearch Template for PeopleSoft Logs"
-  echoinfo "-> Make sure to change the `elastic` password in the base file"
   cp -r /tmp/elk-guided-lab-code/peoplesoft.template.json /etc/logstash/
   chown logstash:logstash /etc/logstash/peoplesoft.template.json
 }
@@ -93,6 +92,13 @@ case $1 in
     ;;
   "step03")
     deploy_peoplesoft_config "03"
+    deploy_peoplesoft_patterns
+    deploy_pipeline
+    remove_file_read_data
+    deploy_elasticsearch_template
+    ;;
+  "step04")
+    deploy_peoplesoft_config "04"
     deploy_peoplesoft_patterns
     deploy_pipeline
     remove_file_read_data
