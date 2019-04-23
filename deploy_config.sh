@@ -74,6 +74,11 @@ function deploy_elasticsearch_template() {
   chown logstash:logstash /etc/logstash/peoplesoft.template.json
 }
 
+function delete_filebeat_index() {
+  echoinfo "Deleting previously loaded Filebeat data"
+  curl -X DELETE "localhost:9200/filebeat-*" -u elastic:6GgW7voSgCMddYi0tUGs
+}
+
 ########
 # Main #
 ########
@@ -96,6 +101,7 @@ case $1 in
     deploy_pipeline
     remove_file_read_data
     deploy_elasticsearch_template
+    delete_filebeat_index
     ;;
   "step04")
     deploy_peoplesoft_config "04"
@@ -103,6 +109,7 @@ case $1 in
     deploy_pipeline
     remove_file_read_data
     deploy_elasticsearch_template
+    delete_filebeat_index
     ;;
   "step05")
     deploy_peoplesoft_config "05"
@@ -117,6 +124,7 @@ case $1 in
     deploy_pipeline
     remove_file_read_data
     deploy_elasticsearch_template
+    delete_filebeat_index
     ;;
   "final")
     deploy_peoplesoft_config "final"
@@ -124,6 +132,7 @@ case $1 in
     deploy_pipeline
     remove_file_read_data
     deploy_elasticsearch_template
+    delete_filebeat_index
     ;;
   *)
     echoinfo "Pass in a step to deploy: step01, step0X, or final"
