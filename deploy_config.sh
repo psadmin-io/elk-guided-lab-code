@@ -101,7 +101,6 @@ case $1 in
     deploy_pipeline
     remove_file_read_data
     deploy_elasticsearch_template
-    delete_filebeat_index
     ;;
   "step04")
     deploy_peoplesoft_config "04"
