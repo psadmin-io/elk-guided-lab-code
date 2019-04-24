@@ -8,7 +8,6 @@ input {
     path => ["/tmp/elk-guided-lab-code/logs/webserv/psftdb/servers/PIA/logs/PIA_access.log*"]
     mode => "read"
     start_position => "beginning"
-    # file_chunk_size => "60000"
     file_completed_action => "log"
     file_completed_log_path => "/var/log/logstash/files.log"
   }
