@@ -66,7 +66,7 @@ function deploy_peoplesoft_patterns() {
 function remove_file_read_data() {
   echoinfo "Removing file read data for Logstash"
   rm -rf /usr/share/logstash/data/plugins/inputs/file/.sinced*
-  rm /var/log/logstash/files.log
+  rm -rf /var/log/logstash/files.log
 }
 
 function deploy_elasticsearch_template() {
