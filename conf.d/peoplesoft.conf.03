@@ -1,6 +1,8 @@
 input {
   file {
-    type => "access_log"
+    add_field => {
+      "document_type" => "access_log" 
+    }
     path => ["/tmp/elk-guided-lab-code/logs/webserv/psftdb/servers/PIA/logs/PIA_access.log00001"]
     mode => "read"
     start_position => "beginning"

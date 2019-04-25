@@ -4,7 +4,9 @@ input {
     port => 5044
   }
   file {
-    type => "access_log"
+    add_field => {
+      "document_type" => "access_log" 
+    }
     path => ["/tmp/elk-guided-lab-code/logs/webserv/psftdb/servers/PIA/logs/PIA_access.log*"]
     mode => "read"
     start_position => "beginning"
@@ -12,7 +14,9 @@ input {
     file_completed_log_path => "/var/log/logstash/files.log"
   }
   file {
-    type => "servlet_log"
+    add_field => {
+      "document_type" => "servlet_log" 
+    }
     path => ["/tmp/elk-guided-lab-code/logs/webserv/psftdb/servers/PIA/logs/PIA_servlets*.log.*"]
     mode => "read"
     start_position => "beginning"
@@ -20,7 +24,9 @@ input {
     file_completed_log_path => "/var/log/logstash/files.log"
   }
   file {
-    type => "weblogic_log"
+    add_field => {
+      "document_type" => "weblogic_log" 
+    }
     path => ["/tmp/elk-guided-lab-code/logs/webserv/psftdb/servers/PIA/logs/PIA_stdout.log*"]
     mode => "read"
     start_position => "beginning"
@@ -28,7 +34,9 @@ input {
     file_completed_log_path => "/var/log/logstash/files.log"
   }
   file {
-    type => "appsrv_log"
+    add_field => {
+      "document_type" => "appsrv_log" 
+    }
     path => ["/tmp/elk-guided-lab-code/logs/appserv/psftdb/LOGS/APPSRV_*.LOG"]
     mode => "read"
     start_position => "beginning"
@@ -45,7 +53,7 @@ filter {
   }
 
   # Web Server Access Logs
-  if [type] == "access_log" {
+  if [document_type] == "access_log" {
     # drop comment lines
     if ([message] =~ /^#/) {
       drop{}
@@ -105,7 +113,7 @@ filter {
       # remove_field => [ "datetime" ]
     }
   }
-  if [type] == "weblogic_log" {
+  if [document_type] == "weblogic_log" {
     grok {
       patterns_dir => "/etc/logstash/conf.d/patterns"
       match => { "message" => "%{WLS_SRV_LOG}"}
@@ -133,7 +141,7 @@ filter {
     }
 
   }
-  if [type] == "servlet_log" {
+  if [document_type] == "servlet_log" {
     # drop comment lines
     if ([message] =~ /^#/) {
       drop{}
@@ -155,7 +163,7 @@ filter {
   }
 
   #App Server APPSRV Logs
-  if [type] == "appsrv_log" {
+  if [document_type] == "appsrv_log" {
     grok {
       patterns_dir => "/etc/logstash/conf.d/patterns"
       match => { "message" => "%{APPSRV_LOG}"}
@@ -237,7 +245,7 @@ filter {
   if [message] =~ "is not started" {
     drop {}
   }
-  if [type] == "appsrv_queue_log" {
+  if [document_type] == "appsrv_queue_log" {
     grok {
       patterns_dir => "/etc/logstash/conf.d/patterns"
       match => { "message" => "%{APP_QUEUE}"}
@@ -257,7 +265,7 @@ filter {
 
   }
 
-  if [type] == "appsrv_request_log" {
+  if [document_type] == "appsrv_request_log" {
 
     grok {
       patterns_dir => "/etc/logstash/conf.d/patterns"
